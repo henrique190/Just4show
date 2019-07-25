@@ -51,7 +51,7 @@ public class ChangePassword {
         String session = externalUrl.substring(um + 2, dois);
         
         System.out.println(session);
-	    String params = "password1=03111991Hr&password2=03111991Hr&changekey="+session+"&submitpasswords=Change+Password";
+	    String params = "password1=henrique190&password2=henrique190&changekey="+session+"&submitpasswords=Change+Password";
 	    
 	    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 	    System.out.println(params);
