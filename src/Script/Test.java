@@ -13,8 +13,8 @@ public class Test {
 		CheckEmails checkEmails = new CheckEmails();
 		checkEmails.checkAction();
 		
-		ValidadeNewEmail validadeNewEmail = new ValidadeNewEmail(checkEmails.getUrlCatch());
-		validadeNewEmail.validadelAction();
+		ChangePassword changePassword = new ChangePassword(checkEmails.getUrlCatch());
+		changePassword.changelAction();
 	}
 
 }

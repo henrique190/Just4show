@@ -53,10 +53,11 @@ public class CheckEmails {
 		List<String> extractedUrls = findUrls.extractUrls(url);
 
 		boolean findUrl = false;
-		
+	
 		for (String x : extractedUrls) {
 			if (findUrl == false) {
 				if (x.contains("secure.runescape.com")) {
+					
 					this.urlCatch = x;
 					findUrl = true;
 				}
@@ -64,11 +65,13 @@ public class CheckEmails {
 
 		}
 		 
-		 
+		if(url.contains("utm")) {
+			int dois = urlCatch.indexOf("?utm");
+			int um = 0;
+			urlCatch = urlCatch.substring(um,dois);
+		}
 		
-		
-		
-		
+
 		System.out.println(urlCatch);
 
 	}

@@ -109,6 +109,7 @@ public class Login {
 			vars.loggedin = true;
 		} else {
 			System.out.println("User or password invalid");
+			vars.loggedin = false;
 		}
 
 		con.disconnect();

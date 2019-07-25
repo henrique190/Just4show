@@ -2,10 +2,10 @@ package Script;
 
 public class Configs {
 
-	public boolean loggedin = false;
-	public boolean verificanEmailcanceled = false;
-	public boolean emailchanged = false;
-	public boolean passwordChanged = false;
-	public boolean  emailChecked = false;
-	public boolean validadeEmail = false;
+	public static boolean loggedin = false;
+	public static boolean verificanEmailcanceled = false;
+	public static boolean emailchanged = false;
+	public static boolean passwordChanged = false;
+	public static boolean  emailChecked = false;
+	public static boolean validadeEmail = false;
 }

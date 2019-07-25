@@ -41,7 +41,7 @@ public class ChangePassword {
 	    con.setRequestProperty("User-Agent",USER_AGENT);
 	    con.setRequestProperty("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 	    con.setRequestProperty("Accept-Language", "en-US,en);q=0.5");
-	    con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
+	    //con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
 	    con.setRequestProperty("Referer","http://oldschool.runescape.com/");
 	    con.setDoOutput(true);
 	    con.setDoInput(true);
@@ -51,15 +51,36 @@ public class ChangePassword {
         String session = externalUrl.substring(um + 2, dois);
         
         System.out.println(session);
-	    String params = "password1=henrique190&password2=henrique190&changekey="+session+"&submitpasswords=Change+Password";
+	    String params = "password1=157930Hr&password2=157930Hr&changekey="+session+"&submitpasswords=Change+Password";
 	    
 	    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 	    System.out.println(params);
         wr.writeBytes(params);
         wr.flush();
         wr.close();
-	    System.out.println("\n"+con.getResponseCode()+"\n");    
-	    System.out.println("\n"+con.getURL().toString()+"\n");
+	    System.out.println("\n"+con.getResponseCode()+"\n"); 
+	    
+	    BufferedReader br;
+		if (200 <= con.getResponseCode() && con.getResponseCode() <= 299) {
+	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	    } else {
+	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+	    }
+	    StringBuilder sb = new StringBuilder();
+	    String output;
+	    while ((output = br.readLine()) != null) {
+	      sb.append(output);
+	    }
+
+	    
+	    if(sb.toString().contains("Mudança efetuada com sucesso")) {
+	    	
+	    	System.out.println("New password setted sucessful");
+	    }else {
+	    	System.out.println("Failed set new password");
+	    }
+	    
+	    
 		   
 	}
 }
