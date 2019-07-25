@@ -27,7 +27,7 @@ public class Login {
 	String apiKey = "379ead4ad08eec6c7985ee62e62b56bf";
 	String session = "";
 	String location = "";
-	
+
 	public String getSession() {
 		return session;
 	}
@@ -35,9 +35,6 @@ public class Login {
 	public void setSession(String session) {
 		this.session = session;
 	}
-
-	
-	
 
 	public Login(String osrsEmail, String osrsSenha, String apiKey) {
 		this.osrsEmail = osrsEmail;
@@ -68,54 +65,52 @@ public class Login {
 	}
 
 	public void loginRs() throws IOException, InterruptedException {
-		
+
 		String recaptchaResponse = getRecaptcha("379ead4ad08eec6c7985ee62e62b56bf");
-		
-				
-		String params = "username=155nctjku%40gmail.com&password=03111991Hr&g-recaptcha-response="+recaptchaResponse+"&theme=dual&mod=www&ssl=1&dest=account_settings";
+
+		String params = "username=55nctjku%40gmail.com&password=03111991Hr&g-recaptcha-response="+recaptchaResponse+"&theme=dual&mod=www&ssl=1&dest=account_settings";
 
 		URL url;
-	    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1",8888));
-	    url = new URL("https://secure.runescape.com/m=weblogin/l=3/login.ws");
-	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection(proxy);
-	    HttpsURLConnection.setFollowRedirects(true);
-	    String USER_AGENT = RandomUserAgent.getRandomUserAgent();
-	    con.setRequestMethod("POST");
-	    con.setRequestProperty("Host", "secure.runescape.com");
-	    con.setRequestProperty("User-Agent",USER_AGENT);
-	    con.setRequestProperty("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-	    con.setRequestProperty("Accept-Language", "en-US,en);q=0.5");
-	    con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
-	    con.setRequestProperty("Referer","http://oldschool.runescape.com/");
-	    con.setDoOutput(true);
-	    con.setDoInput(true);
-	    
-	    
-	    
-	    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-	    System.out.println(params);
-        wr.writeBytes(params);
-        wr.flush();
-        wr.close();
-	    
-	    Thread.sleep(20000);
-       
-        if(con.getResponseCode() == 302) {
-        	System.out.println("Foi");
-        }
-        String location = ""+ con.getURL().toString();
+		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8888));
+		url = new URL("https://secure.runescape.com/m=weblogin/l=3/login.ws");
+		HttpsURLConnection con = (HttpsURLConnection) url.openConnection(proxy);
+		HttpsURLConnection.setFollowRedirects(true);
+		String USER_AGENT = RandomUserAgent.getRandomUserAgent();
+		con.setConnectTimeout(20000);
+		con.setReadTimeout(20000);
+		con.setInstanceFollowRedirects(true);
+		con.setRequestMethod("POST");
+		con.setRequestProperty("Host", "secure.runescape.com");
+		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		con.setRequestProperty("Accept-Language", "en-US,en);q=0.5");
+		con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
+		con.setRequestProperty("Referer", "http://oldschool.runescape.com/");
+		con.setDoOutput(true);
+		con.setDoInput(true);
 
-		
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		System.out.println(params);
 
-		  if (location.contains("account_settings") ||
-		  location.contains("set_address")) { System.out.println("User: " +osrsEmail +
-		  "Logged in"); String cookie = location; int um = cookie.indexOf("s="); int
-		  dois = cookie.lastIndexOf("/"); session = cookie.substring(um, dois); } else
-		  { System.out.println("User or password invalid"); }
-		 
-		 con.disconnect();
+		wr.writeBytes(params);
+		wr.flush();
+		wr.close();
+
+		System.out.println(con.getResponseCode());
+		String location = "" + con.getURL().toString();
+
+		if (location.contains("account_settings") || location.contains("set_address")) {
+			System.out.println("User: " + osrsEmail + " Logged in");
+			String cookie = location;
+			int um = cookie.indexOf("s=");
+			int dois = cookie.lastIndexOf("/");
+			session = cookie.substring(um, dois);
+		} else {
+			System.out.println("User or password invalid");
+		}
+
+		con.disconnect();
 
 	}
-	
 
 }

@@ -10,7 +10,7 @@ import javax.mail.MessagingException;
 public class Executavel {
     public static void main(String[] args) throws IOException, InterruptedException, MessagingException {
 
-      Login login = new Login("henriquereissp@gmail.com","031119911Hr","379ead4ad08eec6c7985ee62e62b56bf");
+      Login login = new Login("55nctjku%40gmail.com","031119911Hr","379ead4ad08eec6c7985ee62e62b56bf");
       login.loginRs();
       
       
