@@ -7,25 +7,16 @@ import java.util.regex.Pattern;
 
 public class FindUrls {
 	public static List<String> extractUrls(String input) {
-        List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<String>();
 
-        Pattern pattern = Pattern.compile(
-            "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)" + 
-            "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov" + 
-            "|mil|biz|info|mobi|name|aero|jobs|museum" + 
-            "|travel|[a-z]{2}))(:[\\d]{1,5})?" + 
-            "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?" + 
-            "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" + 
-            "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)" + 
-            "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" + 
-            "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*" + 
-            "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
+		Pattern pattern = Pattern
+				.compile("(ftp:\\/\\/|www\\.|https?:\\/\\/){1}[a-zA-Z0-9u00a1-\\uffff0-]{2,}\\.[a-zA-Z0-9u00a1-\\uffff0-]{2,}(\\S*)");
 
-        Matcher matcher = pattern.matcher(input);
-        while (matcher.find()) {
-            result.add(matcher.group());
-        }
+		Matcher matcher = pattern.matcher(input);
+		while (matcher.find()) {
+			result.add(matcher.group());
+		}
 
-        return result;
-    }
+		return result;
+	}
 }

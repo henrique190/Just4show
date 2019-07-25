@@ -21,10 +21,13 @@ import javax.net.ssl.HttpsURLConnection;
 public class ChangeEmail {
 	
 	String session;
+	String gmail;
+	Configs vars = new Configs();
 
-	public ChangeEmail(String session) {
+	public ChangeEmail(String session,String gmail) {
 		super();
 		this.session = session;
+		this.gmail = gmail;
 	}
 	
 	public void action() throws IOException {
@@ -47,13 +50,27 @@ public class ChangeEmail {
 	    con.setDoInput(true);
 	    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 	    
-	    String params = "na=henriquereissp%40gmail.com&na2=henriquereissp%40gmail.com&agree_pp_and_tac=on&reg=1&action=-1&submit=Submit";
+	    String params = "na="+gmail+"&na2="+gmail+"&agree_pp_and_tac=on&reg=1&action=-1&submit=Submit";
 	    
         System.out.println(params);
         wr.writeBytes(params);
         wr.flush();
         wr.close();
+        
+        
+        
 	    System.out.println("\n"+con.getResponseCode()+"\n");    
-	    System.out.println("\n"+con.getURL().toString()+"\n");    
+        String location = "" + con.getURL().toString();
+        
+        if (location.contains("submit_address") || location.contains("set_address")) {
+			System.out.println("Sent email adress");
+			vars.emailchanged = true;
+		} else {
+			System.out.println("Invalid email request change");
+		}
+
+		con.disconnect();
+        
+        
 	}
 }

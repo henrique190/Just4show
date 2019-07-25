@@ -21,6 +21,7 @@ import TwoCaptchaApi.TwoCaptchaService;
 import javax.net.ssl.HttpsURLConnection;
 
 public class Login {
+	Configs vars = new Configs();
 	String urlRs = "https://secure.runescape.com/m=weblogin/l=3/login.ws";
 	String osrsEmail = "";
 	String osrsSenha = "";
@@ -68,7 +69,7 @@ public class Login {
 
 		String recaptchaResponse = getRecaptcha("379ead4ad08eec6c7985ee62e62b56bf");
 
-		String params = "username=55nctjku%40gmail.com&password=03111991Hr&g-recaptcha-response="+recaptchaResponse+"&theme=dual&mod=www&ssl=1&dest=account_settings";
+		String params = "username="+osrsEmail+"&password="+osrsSenha+"&g-recaptcha-response="+recaptchaResponse+"&theme=dual&mod=www&ssl=1&dest=account_settings";
 
 		URL url;
 		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8888));
@@ -105,6 +106,7 @@ public class Login {
 			int um = cookie.indexOf("s=");
 			int dois = cookie.lastIndexOf("/");
 			session = cookie.substring(um, dois);
+			vars.loggedin = true;
 		} else {
 			System.out.println("User or password invalid");
 		}
