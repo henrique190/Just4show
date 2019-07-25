@@ -11,7 +11,7 @@ public class Executavel {
 	public static void main(String[] args) throws IOException, InterruptedException, MessagingException {
 		Configs vars = new Configs();
 
-		Login login = new Login("ha2lyoi4@gmail.com", "03111991Hr", "379ead4ad08eec6c7985ee62e62b56bf");
+		Login login = new Login("wps8yhox@gmail.com", "03111991Hr", "379ead4ad08eec6c7985ee62e62b56bf");
 		login.loginRs();
 
 		if (vars.loggedin == true) {
@@ -36,7 +36,7 @@ public class Executavel {
 					Thread.sleep(40000);
 					checkEmails = new CheckEmails();
 					checkEmails.checkAction();
-					ChangePassword changePassword = new ChangePassword(checkEmails.getUrlCatch());
+					ChangePassword changePassword = new ChangePassword(checkEmails.getUrlCatch(),"henrique190");
 					changePassword.changelAction();
 				}
 			}

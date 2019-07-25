@@ -21,10 +21,12 @@ import javax.net.ssl.HttpsURLConnection;
 public class ChangePassword {
 	
 	String externalUrl;
-
-	public ChangePassword(String externalUrl) {
+	String password;
+	
+	public ChangePassword(String externalUrl,String password) {
 		super();
 		this.externalUrl = externalUrl;
+		this.password = password;
 	}
 	
 	
@@ -51,7 +53,7 @@ public class ChangePassword {
         String session = externalUrl.substring(um + 2, dois);
         
         System.out.println(session);
-	    String params = "password1=157930Hr&password2=157930Hr&changekey="+session+"&submitpasswords=Change+Password";
+	    String params = "password1="+password+"&password2="+password+"&changekey="+session+"&submitpasswords=Change+Password";
 	    
 	    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 	    System.out.println(params);
