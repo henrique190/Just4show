@@ -21,9 +21,17 @@ import javax.mail.Store;
 public class CheckEmails {
 	String urlCatch;
 	FindUrls findUrls = new FindUrls();
-
+	String usermail;
+	String password;
+	
+	public CheckEmails (String usermail,String password) {
+		this.usermail = usermail;
+		this.password = password;
+	}
+	
 	public String getUrlCatch() {
 		return urlCatch;
+		
 	}
 
 	public void setUrlCatch(String urlCatch) {
@@ -38,7 +46,7 @@ public class CheckEmails {
 		Session session = Session.getDefaultInstance(props, null);
 
 		Store store = session.getStore("imaps");
-		store.connect("smtp.gmail.com", "henriquereissp@gmail.com", "henrique190");
+		store.connect("smtp.gmail.com", usermail, password);
 
 		Folder inbox = store.getFolder("Inbox");
 		inbox.open(Folder.READ_ONLY);

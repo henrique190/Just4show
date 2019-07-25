@@ -11,7 +11,7 @@ public class Executavel {
 	public static void main(String[] args) throws IOException, InterruptedException, MessagingException {
 		Configs vars = new Configs();
 
-		Login login = new Login("wps8yhox@gmail.com", "03111991Hr", "379ead4ad08eec6c7985ee62e62b56bf");
+		Login login = new Login("xrtno5qq@gmail.com", "03111991Hr", "379ead4ad08eec6c7985ee62e62b56bf");
 		login.loginRs();
 
 		if (vars.loggedin == true) {
@@ -24,7 +24,7 @@ public class Executavel {
 			if (vars.emailchanged == true) {
 				System.out.println("Sleeping 40 seconds");
 				Thread.sleep(40000);
-				CheckEmails checkEmails = new CheckEmails();
+				CheckEmails checkEmails = new CheckEmails("henriquereissp@gmail.com","henrique190");
 				checkEmails.checkAction();
 				ValidadeNewEmail validadeNewEmail = new ValidadeNewEmail(checkEmails.getUrlCatch());
 				validadeNewEmail.validadelAction();
@@ -34,7 +34,7 @@ public class Executavel {
 					requestPasswordChange.requestAction();
 					System.out.println("Sleeping 40 seconds");
 					Thread.sleep(40000);
-					checkEmails = new CheckEmails();
+					checkEmails = new CheckEmails("henriquereissp@gmail.com","henrique190");
 					checkEmails.checkAction();
 					ChangePassword changePassword = new ChangePassword(checkEmails.getUrlCatch(),"henrique190");
 					changePassword.changelAction();
