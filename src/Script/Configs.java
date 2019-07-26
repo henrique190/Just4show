@@ -15,10 +15,15 @@ public class Configs {
 	
 	public static boolean loggedin = false;
 	public static boolean verificanEmailcanceled = false;
-	public static boolean emailchanged = false;
+	public static boolean requestedEmailChange = false;
 	public static boolean passwordChanged = false;
 	public static boolean  emailChecked = false;
 	public static boolean validadeEmail = false;
 	
 	public static boolean isRunning = false;
+	
+	
+	
+	public static boolean checkedChangeEmail = false;
+	public static boolean checkedChangePassword = false;
 }

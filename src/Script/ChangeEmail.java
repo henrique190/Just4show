@@ -64,7 +64,7 @@ public class ChangeEmail {
         
         if (location.contains("submit_address") || location.contains("set_address")) {
 			System.out.println("Sent email adress");
-			vars.emailchanged = true;
+			vars.requestedEmailChange = true;
 		} else {
 			System.out.println("Invalid email request change");
 		}

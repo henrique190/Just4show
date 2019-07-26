@@ -40,53 +40,72 @@ public class Executavel {
 				CancelVerification cancelVerification = new CancelVerification(login.getSession());
 				cancelVerification.cancelAction();
 
-				ChangeEmail changeEmail = new ChangeEmail(login.getSession(), vars.gmail);
-				changeEmail.action();
-
-				if (vars.emailchanged == true) {
+				if(vars.checkedChangeEmail == true) {
+					ChangeEmail changeEmail = new ChangeEmail(login.getSession(), vars.gmail);
+					changeEmail.action();
+					if (vars.requestedEmailChange == true) {
+						System.out.println("Sleeping 40 seconds");
+						Thread.sleep(40000);
+						CheckEmails checkEmails = new CheckEmails(vars.gmail, vars.gmailPass);
+						checkEmails.checkAction();
+						ValidadeNewEmail validadeNewEmail = new ValidadeNewEmail(checkEmails.getUrlCatch());
+						validadeNewEmail.validadelAction();
+					}
+				}
+				
+				if(vars.checkedChangePassword == true) {
+					RequestPasswordChange requestPasswordChange = new RequestPasswordChange(login.getSession());
+					requestPasswordChange.requestAction();
 					System.out.println("Sleeping 40 seconds");
 					Thread.sleep(40000);
 					CheckEmails checkEmails = new CheckEmails(vars.gmail, vars.gmailPass);
 					checkEmails.checkAction();
-					ValidadeNewEmail validadeNewEmail = new ValidadeNewEmail(checkEmails.getUrlCatch());
-					validadeNewEmail.validadelAction();
+					ChangePassword changePassword = new ChangePassword(checkEmails.getUrlCatch(), vars.newPassword);
+					changePassword.changelAction();
+					
+					if (vars.passwordChanged == true) {
 
-					if (vars.validadeEmail == true) {
-						RequestPasswordChange requestPasswordChange = new RequestPasswordChange(login.getSession());
-						requestPasswordChange.requestAction();
-						System.out.println("Sleeping 40 seconds");
-						Thread.sleep(40000);
-						checkEmails = new CheckEmails(vars.gmail, vars.gmailPass);
-						checkEmails.checkAction();
-						ChangePassword changePassword = new ChangePassword(checkEmails.getUrlCatch(), vars.newPassword);
-						changePassword.changelAction();
-
-						if (vars.passwordChanged == true) {
-
-							String diretorio = System.getProperty("user.dir");
-							File file = new File(diretorio, "accsChanged.txt");
-							if (!file.exists()) {
-								file.createNewFile();
-							}
-							try (FileWriter fw = new FileWriter(file, true);
-									BufferedWriter bw = new BufferedWriter(fw);
-									PrintWriter out = new PrintWriter(bw)) {
-								out.println(vars.osrsEmail + ":" + vars.newPassword);
-							} catch (IOException e) {
-								System.out.println("Error writing file");
-							}
-
+						String diretorio = System.getProperty("user.dir");
+						File file = new File(diretorio, "accsChanged.txt");
+						if (!file.exists()) {
+							file.createNewFile();
 						}
-					}
-				}
+						try (FileWriter fw = new FileWriter(file, true);
+								BufferedWriter bw = new BufferedWriter(fw);
+								PrintWriter out = new PrintWriter(bw)) {
+							out.println(vars.osrsEmail.get(i) + ":" + vars.osrsEmail.get(i+1));
+						} catch (IOException e) {
+							System.out.println("Error writing file");
+						}
 
+					}
+				
+				}
+				
+					
+
+					
+
+			}else {
+				String diretorio = System.getProperty("user.dir");
+				File file = new File(diretorio, "FailedAccounts.txt");
+				if (!file.exists()) {
+					file.createNewFile();
+				}
+				try (FileWriter fw = new FileWriter(file, true);
+						BufferedWriter bw = new BufferedWriter(fw);
+						PrintWriter out = new PrintWriter(bw)) {
+					out.println(vars.osrsEmail.get(i) + ":" + vars.osrsEmail.get(i+1));
+				} catch (IOException e) {
+					System.out.println("Error writing file");
+				}
 			}
 			
 			
 			
 			vars.loggedin = false;
 			vars.verificanEmailcanceled = false;
-			vars.emailchanged = false;
+			vars.requestedEmailChange = false;
 			vars.passwordChanged = false;
 			vars.emailChecked = false;
 			vars.validadeEmail = false;

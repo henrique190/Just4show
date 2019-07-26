@@ -124,9 +124,8 @@ public Gui(){
 			vars.gmailPass = textField3.getText();
 			vars.newPassword = textField4.getText();
 			
-			
-			System.out.println(radioButton.isSelected() + "\n");
-			System.out.println(radioButton2.isSelected() + "\n");
+			vars.checkedChangeEmail = radioButton.isSelected();
+			vars.checkedChangePassword = radioButton2.isSelected();
 			
 			System.out.println(vars.apiKey + "\n");
 			System.out.println(vars.gmail + "\n");
