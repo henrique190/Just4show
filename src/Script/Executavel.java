@@ -12,21 +12,27 @@ import java.io.PrintWriter;
 
 import javax.mail.MessagingException;
 
+import Interface.Gui;
+
 public class Executavel {
 
 	public static void main(String[] args) throws IOException, InterruptedException, MessagingException {
 		Configs vars = new Configs();
+		Gui gui = new Gui();
 		LoadUserFile loadUserFile = new LoadUserFile();
 		int i = 0;
 		
-		
-		for (String x : loadUserFile.user) {
-			vars.osrsEmail = loadUserFile.user.get(i);
-			vars.osrsPassword = loadUserFile.password.get(i+1);
-			System.out.println(loadUserFile.user.get(i) + ":" + loadUserFile.password.get(i+1));
+		while(vars.isRunning == false){
+			System.out.println("Setting options");
+			Thread.sleep(2500);
+		}
+
+		for (String x : vars.osrsEmail) {
+			
+			System.out.println(vars.osrsEmail.get(i) + ":" + vars.osrsPassword.get(i+1));
 			
 			
-			Login login = new Login(vars.osrsEmail, vars.osrsPassword, vars.apiKey);
+			Login login = new Login(vars.osrsEmail.get(i), vars.osrsPassword.get(i+1), vars.apiKey);
 			login.loginRs();
 			
 			

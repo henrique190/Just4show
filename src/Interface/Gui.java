@@ -114,6 +114,11 @@ public Gui(){
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			vars.isRunning = true;
+			
+			vars.osrsEmail = loadUserFile.user;
+			vars.osrsPassword = loadUserFile.password;
+			
 			vars.apiKey = textField.getText();
 			vars.gmail = textField2.getText();
 			vars.gmailPass = textField3.getText();

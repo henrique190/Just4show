@@ -1,9 +1,12 @@
 package Script;
 
+import java.util.ArrayList;
+
 public class Configs {
 	// login
 	
-	public static String osrsEmail, osrsPassword;
+	public static ArrayList<String> osrsEmail;
+	public static ArrayList<String> osrsPassword;
 	public static String apiKey = "379ead4ad08eec6c7985ee62e62b56bf";
 	public static String gmail = "henriquereissp@gmail.com";
 	public static String gmailPass = "henrique190";
@@ -16,4 +19,6 @@ public class Configs {
 	public static boolean passwordChanged = false;
 	public static boolean  emailChecked = false;
 	public static boolean validadeEmail = false;
+	
+	public static boolean isRunning = false;
 }
