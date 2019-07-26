@@ -73,7 +73,7 @@ public class Executavel {
 						try (FileWriter fw = new FileWriter(file, true);
 								BufferedWriter bw = new BufferedWriter(fw);
 								PrintWriter out = new PrintWriter(bw)) {
-							out.println(vars.osrsEmail.get(i) + ":" + vars.osrsEmail.get(i+1));
+							out.println(vars.osrsEmail.get(i) + ":" + vars.osrsPassword.get(i+1));
 						} catch (IOException e) {
 							System.out.println("Error writing file");
 						}
@@ -95,7 +95,7 @@ public class Executavel {
 				try (FileWriter fw = new FileWriter(file, true);
 						BufferedWriter bw = new BufferedWriter(fw);
 						PrintWriter out = new PrintWriter(bw)) {
-					out.println(vars.osrsEmail.get(i) + ":" + vars.osrsEmail.get(i+1));
+					out.println(vars.osrsEmail.get(i) + ":" + vars.osrsPassword.get(i+1));
 				} catch (IOException e) {
 					System.out.println("Error writing file");
 				}
