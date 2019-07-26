@@ -22,6 +22,7 @@ public class ChangePassword {
 	
 	String externalUrl;
 	String password;
+	Configs vars = new Configs();
 	
 	public ChangePassword(String externalUrl,String password) {
 		super();
@@ -78,6 +79,7 @@ public class ChangePassword {
 	    if(sb.toString().contains("Mudança efetuada com sucesso")) {
 	    	
 	    	System.out.println("New password setted sucessful");
+	    	vars.passwordChanged = true;
 	    }else {
 	    	System.out.println("Failed set new password");
 	    }

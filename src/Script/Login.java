@@ -28,6 +28,7 @@ public class Login {
 	String apiKey = "379ead4ad08eec6c7985ee62e62b56bf";
 	String session = "";
 	String location = "";
+	String responseToken = "";
 
 	public String getSession() {
 		return session;
@@ -50,7 +51,7 @@ public class Login {
 				ProxyType.HTTP);
 
 		try {
-			String responseToken = service.solveCaptcha();
+			responseToken = service.solveCaptcha();
 			System.out.println("The response token is: " + responseToken);
 			if (!responseToken.contains("ERROR")) {
 				return responseToken;
@@ -67,7 +68,7 @@ public class Login {
 
 	public void loginRs() throws IOException, InterruptedException {
 
-		String recaptchaResponse = getRecaptcha("379ead4ad08eec6c7985ee62e62b56bf");
+		String recaptchaResponse = getRecaptcha(apiKey);
 
 		String params = "username="+osrsEmail+"&password="+osrsSenha+"&g-recaptcha-response="+recaptchaResponse+"&theme=dual&mod=www&ssl=1&dest=account_settings";
 

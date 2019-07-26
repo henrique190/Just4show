@@ -21,12 +21,7 @@ public class LoadUserFile {
 	private Scanner ler;
 	
 	public LoadUserFile () {
-		try {
-			lerArquivo();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 	public void lerArquivo() throws FileNotFoundException {
