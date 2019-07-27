@@ -2,7 +2,7 @@ package Script;
 
 import java.util.ArrayList;
 
-public class Configs {
+public class  {
 	// login
 	
 	public static ArrayList<String> osrsEmail;

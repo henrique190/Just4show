@@ -20,14 +20,13 @@ public class Executavel {
 		Configs vars = new Configs();
 		Gui gui = new Gui();
 		LoadUserFile loadUserFile = new LoadUserFile();
-		int i = 0;
 		
 		while(vars.isRunning == false){
 			System.out.println("Setting options");
 			Thread.sleep(2500);
 		}
 
-		for (String x : vars.osrsEmail) {
+		for (int i = 0; i < vars.osrsEmail.size(); i++) {
 			
 			System.out.println(vars.osrsEmail.get(i) + ":" + vars.osrsPassword.get(i+1));
 			
@@ -73,7 +72,7 @@ public class Executavel {
 						try (FileWriter fw = new FileWriter(file, true);
 								BufferedWriter bw = new BufferedWriter(fw);
 								PrintWriter out = new PrintWriter(bw)) {
-							out.println(vars.osrsEmail.get(i) + ":" + vars.osrsPassword.get(i+1));
+							out.println(vars.osrsEmail.get(i) + ":" + vars.newPassword);
 						} catch (IOException e) {
 							System.out.println("Error writing file");
 						}
@@ -109,7 +108,7 @@ public class Executavel {
 			vars.passwordChanged = false;
 			vars.emailChecked = false;
 			vars.validadeEmail = false;
-			i++;
+			
 		}
 		
 		
