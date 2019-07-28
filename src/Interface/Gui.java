@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import Script.Configs;
 import Script.LoadUserFile;
@@ -44,6 +45,7 @@ public Gui(){
 	frame.add(panel);
 	frame.setSize(300, 300);
 	frame.setVisible(true);
+	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	panel.add(jLabel);
 	panel.add(button2);
 	

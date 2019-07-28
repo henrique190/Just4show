@@ -1,11 +1,13 @@
 package Interface;
 
 import java.awt.GridLayout;
+import java.rmi.server.Operation;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 
 import Script.ThreadLog;
 
@@ -26,10 +28,11 @@ public class GuiLog {
 		frame.add(panel);
 		frame.setSize(600, 100);
 		frame.setVisible(true);
-		
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		panel.add(jLabel);
 		panel.add(accountsFailed);
 		panel.add(area);
+		
 		
 		
 		
