@@ -36,7 +36,7 @@ public class ChangePassword {
 		URL url;
 	    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1",8888));
 	    url = new URL(externalUrl);
-	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection(proxy);
+	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
 
 	    String USER_AGENT = RandomUserAgent.getRandomUserAgent();
 	    con.setRequestMethod("POST");
@@ -58,11 +58,12 @@ public class ChangePassword {
 	    
 	    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 	    System.out.println(params);
+	    Configs.status = (params);
         wr.writeBytes(params);
         wr.flush();
         wr.close();
 	    System.out.println("\n"+con.getResponseCode()+"\n"); 
-	    
+	    Configs.status = ("\n"+con.getResponseCode()+"\n");
 	    BufferedReader br;
 		if (200 <= con.getResponseCode() && con.getResponseCode() <= 299) {
 	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -79,8 +80,10 @@ public class ChangePassword {
 	    if(sb.toString().contains("Mudança efetuada com sucesso")) {
 	    	
 	    	System.out.println("New password setted sucessful");
+	    	Configs.status =("New password setted sucessful");
 	    	vars.passwordChanged = true;
 	    }else {
+	    	Configs.status = ("Failed set new password");
 	    	System.out.println("Failed set new password");
 	    }
 	    

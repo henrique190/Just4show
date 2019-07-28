@@ -2,6 +2,8 @@ package TwoCaptchaApi;
 
 import java.io.IOException;
 
+import Script.Configs;
+
 
 
 	public class TwoCaptchaService {
@@ -45,6 +47,7 @@ import java.io.IOException;
 		
 		public String solveCaptcha() throws InterruptedException, IOException {
 			System.out.println("Sending recaptcha challenge to 2captcha.com");
+			Configs.status = ("Sending recaptcha challenge to 2captcha.com");
 			
 			String parameters = "key=" + apiKey
 					+ "&method=userrecaptcha"
@@ -77,9 +80,11 @@ import java.io.IOException;
 				Thread.sleep(1000);
 				
 				timeCounter++;
+				Configs.status = ("Waiting for captcha to be solved... elapsed " + timeCounter);
 				System.out.println("Waiting for captcha to be solved... elapsed " + timeCounter);
 			} while(hw.getHtml().contains("NOT_READY"));
 			System.out.println("It took "  + timeCounter + " seconds to solve the captcha");
+			Configs.status = ("It took "  + timeCounter + " seconds to solve the captcha");
 			String gRecaptchaResponse = hw.getHtml().replaceAll("OK\\|", "").replaceAll("\\n", "");
 			return gRecaptchaResponse;
 		}

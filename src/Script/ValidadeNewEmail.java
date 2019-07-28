@@ -40,7 +40,7 @@ public class ValidadeNewEmail {
 		URL url;
 	    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1",8888));
 	    url = new URL(newUrl);
-	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection(proxy);
+	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
 
 	    String USER_AGENT = RandomUserAgent.getRandomUserAgent();
 	    con.setRequestMethod("GET");
@@ -69,6 +69,7 @@ public class ValidadeNewEmail {
 	    if(sb.toString().contains("<h1>Cadastro efetuado</h1>")) {
 	    	vars.validadeEmail = true;
 	    	System.out.println("New email sucessul setted");
+	    	Configs.status = ("New email sucessul setted");
 	    }
 	    
 	   

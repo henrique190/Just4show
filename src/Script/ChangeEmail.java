@@ -36,7 +36,7 @@ public class ChangeEmail {
 		URL url;
 	    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1",8888));
 	    url = new URL(EmailSession);
-	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection(proxy);
+	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
 
 	    String USER_AGENT = RandomUserAgent.getRandomUserAgent();
 	    con.setRequestMethod("POST");
@@ -53,6 +53,7 @@ public class ChangeEmail {
 	    String params = "na="+gmail+"&na2="+gmail+"&agree_pp_and_tac=on&reg=1&action=-1&submit=Submit";
 	    
         System.out.println(params);
+        Configs.status = (params);
         wr.writeBytes(params);
         wr.flush();
         wr.close();
@@ -60,13 +61,16 @@ public class ChangeEmail {
         
         
 	    System.out.println("\n"+con.getResponseCode()+"\n");    
+	    Configs.status = ("\n"+con.getResponseCode()+"\n");   
         String location = "" + con.getURL().toString();
         
         if (location.contains("submit_address") || location.contains("set_address")) {
 			System.out.println("Sent email adress");
+			Configs.status =("Sent email adress");
 			vars.requestedEmailChange = true;
 		} else {
 			System.out.println("Invalid email request change");
+			Configs.status = ("Invalid email request change");
 		}
 
 		con.disconnect();

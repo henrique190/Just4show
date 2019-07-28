@@ -24,7 +24,7 @@ public class GetCookies {
 		URL url;
 	    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1",8888));
 	    url = new URL(loginSession);
-	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection(proxy);
+	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
 	    HttpsURLConnection.setFollowRedirects(true);
 	    String USER_AGENT = RandomUserAgent.getRandomUserAgent();
 	   
@@ -44,6 +44,8 @@ public class GetCookies {
 	    
 	    
 	    System.out.println("\n"+cookiesHeader+"\n");    
-	    System.out.println("\n"+con.getURL().toString());    
+	    System.out.println("\n"+con.getURL().toString());
+	    Configs.status = ("\n"+cookiesHeader+"\n");  
+	    		Configs.status = ("\n"+con.getURL().toString());
 	}
 }

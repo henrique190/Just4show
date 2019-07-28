@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import javax.mail.MessagingException;
 
 import Interface.Gui;
+import Interface.GuiLog;
 
 public class Executavel {
 
@@ -20,16 +21,18 @@ public class Executavel {
 		Configs vars = new Configs();
 		Gui gui = new Gui();
 		LoadUserFile loadUserFile = new LoadUserFile();
+		GuiLog guiLog = new GuiLog();
 		
 		while(vars.isRunning == false){
 			System.out.println("Setting options");
+			Configs.status = ("Setting options");
 			Thread.sleep(2500);
 		}
 
 		for (int i = 0; i < vars.osrsEmail.size(); i++) {
 			
 			System.out.println(vars.osrsEmail.get(i) + ":" + vars.osrsPassword.get(i+1));
-			
+			Configs.status = (vars.osrsEmail.get(i) + ":" + vars.osrsPassword.get(i+1));
 			
 			Login login = new Login(vars.osrsEmail.get(i), vars.osrsPassword.get(i+1), vars.apiKey);
 			login.loginRs();
@@ -44,6 +47,7 @@ public class Executavel {
 					changeEmail.action();
 					if (vars.requestedEmailChange == true) {
 						System.out.println("Sleeping 40 seconds");
+						Configs.status = ("Sleeping 40 seconds");
 						Thread.sleep(40000);
 						CheckEmails checkEmails = new CheckEmails(vars.gmail, vars.gmailPass);
 						checkEmails.checkAction();
@@ -56,6 +60,7 @@ public class Executavel {
 					RequestPasswordChange requestPasswordChange = new RequestPasswordChange(login.getSession());
 					requestPasswordChange.requestAction();
 					System.out.println("Sleeping 40 seconds");
+					Configs.status = ("Sleeping 40 seconds");
 					Thread.sleep(40000);
 					CheckEmails checkEmails = new CheckEmails(vars.gmail, vars.gmailPass);
 					checkEmails.checkAction();
@@ -73,8 +78,10 @@ public class Executavel {
 								BufferedWriter bw = new BufferedWriter(fw);
 								PrintWriter out = new PrintWriter(bw)) {
 							out.println(vars.osrsEmail.get(i) + ":" + vars.newPassword);
+							Configs.accountsSetteds += 1;
 						} catch (IOException e) {
 							System.out.println("Error writing file");
+							Configs.status = ("Error writing file");
 						}
 
 					}
@@ -94,6 +101,7 @@ public class Executavel {
 				try (FileWriter fw = new FileWriter(file, true);
 						BufferedWriter bw = new BufferedWriter(fw);
 						PrintWriter out = new PrintWriter(bw)) {
+					Configs.accountsFailed += 1;
 					out.println(vars.osrsEmail.get(i) + ":" + vars.osrsPassword.get(i+1));
 				} catch (IOException e) {
 					System.out.println("Error writing file");

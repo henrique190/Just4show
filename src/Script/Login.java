@@ -25,7 +25,7 @@ public class Login {
 	String urlRs = "https://secure.runescape.com/m=weblogin/l=3/login.ws";
 	String osrsEmail = "";
 	String osrsSenha = "";
-	String apiKey = "379ead4ad08eec6c7985ee62e62b56bf";
+	String apiKey = "";
 	String session = "";
 	String location = "";
 	String responseToken = "";
@@ -53,11 +53,13 @@ public class Login {
 		try {
 			responseToken = service.solveCaptcha();
 			System.out.println("The response token is: " + responseToken);
+			 Configs.status =("The response token is: " + responseToken);
 			if (!responseToken.contains("ERROR")) {
 				return responseToken;
 			}
 		} catch (InterruptedException e) {
 			System.out.println("Error grabbing key:");
+			Configs.status = ("Error grabbing key:");
 			e.printStackTrace();
 		} catch (IOException e) {
 			System.out.println("Error grabbing key:");
@@ -75,7 +77,7 @@ public class Login {
 		URL url;
 		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8888));
 		url = new URL("https://secure.runescape.com/m=weblogin/l=3/login.ws");
-		HttpsURLConnection con = (HttpsURLConnection) url.openConnection(proxy);
+		HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
 		HttpsURLConnection.setFollowRedirects(true);
 		String USER_AGENT = RandomUserAgent.getRandomUserAgent();
 		con.setConnectTimeout(20000);
@@ -93,16 +95,19 @@ public class Login {
 
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 		System.out.println(params);
+		Configs.status =(params);
 
 		wr.writeBytes(params);
 		wr.flush();
 		wr.close();
 
 		System.out.println(con.getResponseCode());
+		Configs.status = ""+(con.getResponseCode());
 		String location = "" + con.getURL().toString();
 
 		if (location.contains("account_settings") || location.contains("set_address")) {
 			System.out.println("User: " + osrsEmail + " Logged in");
+			Configs.status = ("User: " + osrsEmail + " Logged in");
 			String cookie = location;
 			int um = cookie.indexOf("s=");
 			int dois = cookie.lastIndexOf("/");
@@ -110,6 +115,7 @@ public class Login {
 			vars.loggedin = true;
 		} else {
 			System.out.println("User or password invalid");
+			Configs.status =("User or password invalid");
 			vars.loggedin = false;
 		}
 

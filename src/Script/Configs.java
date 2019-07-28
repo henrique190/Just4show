@@ -5,12 +5,16 @@ import java.util.ArrayList;
 public class Configs {
 	// login
 	
+	public static String status;
+	public static int accountsSetteds;
+	public static int accountsFailed;
+	
 	public static ArrayList<String> osrsEmail;
 	public static ArrayList<String> osrsPassword;
-	public static String apiKey = "379ead4ad08eec6c7985ee62e62b56bf";
-	public static String gmail = "henriquereissp@gmail.com";
-	public static String gmailPass = "henrique190";
-	public static String newPassword = "henrique190";
+	public static String apiKey = "";
+	public static String gmail = "";
+	public static String gmailPass = "";
+	public static String newPassword = "";
 	
 	
 	public static boolean loggedin = false;

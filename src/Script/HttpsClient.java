@@ -21,7 +21,7 @@ public class HttpsClient{
       try {
     	 Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1",8888));
 	     url = new URL(https_url);
-	     HttpsURLConnection con = (HttpsURLConnection)url.openConnection(proxy);
+	     HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
 	     System.out.print(con.getResponseCode());
 			
       } catch (MalformedURLException e) {

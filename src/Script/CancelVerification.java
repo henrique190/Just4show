@@ -33,7 +33,7 @@ public class CancelVerification {
 		URL url;
 	    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1",8888));
 	    url = new URL(cancelEmailSession);
-	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection(proxy);
+	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
 
 	    String USER_AGENT = RandomUserAgent.getRandomUserAgent();
 	    con.setRequestMethod("GET");
@@ -46,6 +46,8 @@ public class CancelVerification {
 	    con.setDoOutput(true);
 	    con.setDoInput(true);
 	    System.out.println("\n"+con.getResponseCode()+"\n");    
-	    System.out.println("\n"+con.getURL().toString()+"\n");    
+	    System.out.println("\n"+con.getURL().toString()+"\n"); 
+	    Configs.status = ("\n"+con.getResponseCode()+"\n");    
+		Configs.status =("\n"+con.getURL().toString()+"\n"); 
 	}
 }
