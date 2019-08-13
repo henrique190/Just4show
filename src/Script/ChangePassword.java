@@ -37,7 +37,7 @@ public class ChangePassword {
 	    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1",8888));
 	    url = new URL(externalUrl);
 	    HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
-
+	    
 	    String USER_AGENT = RandomUserAgent.getRandomUserAgent();
 	    con.setRequestMethod("POST");
 	    con.setRequestProperty("Host", "secure.runescape.com");
@@ -86,7 +86,6 @@ public class ChangePassword {
 	    	Configs.status = ("Failed set new password");
 	    	System.out.println("Failed set new password");
 	    }
-	    
 	    
 		   
 	}

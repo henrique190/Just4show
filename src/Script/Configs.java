@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Configs {
 	// login
 	
+	public static boolean hasNewEmail = false;
+	
 	public static String status;
 	public static int accountsSetteds;
 	public static int accountsFailed;

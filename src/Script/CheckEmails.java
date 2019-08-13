@@ -53,11 +53,11 @@ public class CheckEmails {
 
 		Message lastEmail = inbox.getMessage(inbox.getMessageCount());
 		System.out.println("Mail Subject:- " + lastEmail.getSubject());
-		Configs.status = ("Mail Subject:- " + lastEmail.getSubject());
+
 		String url = getMessageContent(lastEmail);
 
 		System.out.println("Reading eamil to get link");
-		Configs.status =("Reading eamil to get link");
+
 		List<String> extractedUrls = findUrls.extractUrls(url);
 
 		boolean findUrl = false;

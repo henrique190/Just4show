@@ -55,14 +55,11 @@ public Gui(){
 	panel.add(radioButton);
 	panel.add(textField2);
 	panel.add(textField3);
-	textField2.setVisible(false);
-	textField3.setVisible(false);
 	
 	panel.add(radioButton2);
 	
 	panel.add(jLabel3);
 	panel.add(textField4);
-	textField4.setVisible(false);
 	
 	panel.add(button);
 	

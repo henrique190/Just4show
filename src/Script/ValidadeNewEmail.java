@@ -33,7 +33,7 @@ public class ValidadeNewEmail {
 		this.newUrl = newUrl;
 	}
 	
-	public void validadelAction() throws IOException {		
+	public void action() throws IOException {		
 		
 		
 		
