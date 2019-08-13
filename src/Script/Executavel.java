@@ -45,8 +45,8 @@ public class Executavel {
 					ChangeEmail changeEmail = new ChangeEmail(login.getSession(), Configs.gmail);
 
 					changeEmail.action();
-					Thread.sleep(10000);
-					Configs.status = "sleeping 10 seconds";
+					Thread.sleep(40000);
+					Configs.status = "sleeping 40 seconds";
 					check = new CheckEmails(Configs.gmail, Configs.gmailPass);
 					check.checkAction();
 
@@ -57,8 +57,8 @@ public class Executavel {
 					RequestPasswordChange requestPasswordChange = new RequestPasswordChange(login.getSession());
 
 					requestPasswordChange.requestAction();
-					Thread.sleep(10000);
-					Configs.status = "sleeping 10 seconds";
+					Thread.sleep(40000);
+					Configs.status = "sleeping 40 seconds";
 					check = new CheckEmails(Configs.gmail, Configs.gmailPass);
 					check.checkAction();
 					ChangePassword changePassword = new ChangePassword(check.getUrlCatch(), Configs.newPassword);
@@ -85,8 +85,8 @@ public class Executavel {
 					AppealAccount a = new AppealAccount();
 
 					a.action();
-					Thread.sleep(10000);
-					Configs.status = "sleeping 10 seconds";
+					Thread.sleep(40000);
+					Configs.status = "sleeping 40 seconds";
 					check = new CheckEmails(Configs.gmail, Configs.gmailPass);
 					check.checkAction();
 					ValidadeNewEmail v = new ValidadeNewEmail(check.urlCatch);

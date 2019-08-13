@@ -57,7 +57,7 @@ public class Test extends Thread{
 			props.put("mail.store.protocol","imaps");
 			session = Session.getDefaultInstance(props, null);
 			store = session.getStore("imaps");
-			store.connect("imap.gmail.com", "henriquereissp@gmail.com", "henrique190");
+			store.connect("imap.gmail.com", "", "");
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro de conexão: " +e);
 		}
