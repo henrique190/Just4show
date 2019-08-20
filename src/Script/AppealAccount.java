@@ -8,6 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.Proxy;
@@ -15,6 +18,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import TwoCaptchaApi.ProxyType;
 import TwoCaptchaApi.TwoCaptchaService;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -22,12 +26,14 @@ import javax.net.ssl.HttpsURLConnection;
 public class AppealAccount {
 
 	Configs vars = new Configs();
-	String urlRs = "https://secure.runescape.com/m=accountappeal/l=3/a=869/passwordrecovery?webAppeal=true";
-	String osrsEmail = "tAriella2@live.com";
+	String urlRs = "https://secure.runescape.com/m=accountappeal/l=3/a=869/passwordrecovery";
+	String osrsEmail = "";
 	String apiKey = "379ead4ad08eec6c7985ee62e62b56bf";
 	String session = "";
 	String location = "";
 	String responseToken = "";
+	String proxyIP;
+	int port;
 	int loginStatus;
 
 
@@ -48,8 +54,10 @@ public class AppealAccount {
 		this.session = session;
 	}
 
-	public AppealAccount() {
-
+	public AppealAccount(String proxyIP,int port,String osrsEmail) {
+		this.proxyIP = proxyIP;
+		this.port = port;
+		this.osrsEmail = osrsEmail;
 	}
 
 	private String getRecaptcha(String apiKey) {
@@ -76,18 +84,20 @@ public class AppealAccount {
 	}
 
 	public void action() throws IOException, InterruptedException {
+		CookieManager cookieManager = new CookieManager();
+		CookieHandler.setDefault(cookieManager);
+
+
 		String recaptchaResponse = getRecaptcha(apiKey);
-		String params = "email="+osrsEmail+"&password-recovery-submit="+"password-recovery"+"&g-recaptcha-response="+recaptchaResponse;
-		URL url;
-		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8888));
-		url = new URL(urlRs);
-		HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-		HttpsURLConnection.setFollowRedirects(true);
+		String params = "email=" + osrsEmail + "&password-recovery-submit=" + "password-recovery" + "&g-recaptcha-response=" + recaptchaResponse;
+		URL url = new URL("https://secure.runescape.com/m=accountappeal/l=3/a=869/passwordrecovery");
+		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyIP,port));
+
+		HttpURLConnection con = (HttpURLConnection) url.openConnection(proxy);
+		HttpURLConnection.setFollowRedirects(true);
 		String USER_AGENT = RandomUserAgent.getRandomUserAgent();
-		con.setConnectTimeout(20000);
-		con.setReadTimeout(20000);
 		con.setInstanceFollowRedirects(true);
-		con.setRequestMethod("POST");
+		con.setRequestMethod("GET");
 		con.setRequestProperty("Host", "secure.runescape.com");
 		con.setRequestProperty("User-Agent", USER_AGENT);
 		con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
@@ -101,83 +111,80 @@ public class AppealAccount {
 		wr.flush();
 		wr.close();
 
+
 		BufferedReader br;
 		if (200 <= con.getResponseCode() && con.getResponseCode() <= 299) {
 			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		} else {
 			br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 		}
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb;
+		sb = new StringBuilder();
 		String output;
 		while ((output = br.readLine()) != null) {
 			sb.append(output);
 		}
 
-		//System.out.println(sb.toString());
 
-		if(sb.toString().contains("Um link de redefinição de senha foi enviado")) {
-			System.out.println("Link send to email");
+		System.out.println(sb.toString());
+		System.out.println(con.getURL());
 
-		}
+
 		String location = "" + con.getURL().toString();
-		//System.out.println(location);
+
 		if(location.contains("account-identified")) {
-			
+
 			int um = location.indexOf("");
 			int dois = location.lastIndexOf("/");
 			location = location.substring(um, dois);
 			location = location+"/email-confirmation";
-			System.out.println(location+"/email-confirmation");
-			
-			
-			
-		    proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1",8888));
-		    url = new URL(location);
-		    con = (HttpsURLConnection)url.openConnection();
+			System.out.println(location);
 
-		    USER_AGENT = RandomUserAgent.getRandomUserAgent();
-		    con.setRequestMethod("GET");
-		    con.setRequestProperty("Host", "secure.runescape.com");
-		    con.setRequestProperty("User-Agent",USER_AGENT);
-		    con.setRequestProperty("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-		    con.setRequestProperty("Accept-Language", "en-US,en);q=0.5");
-		    //  con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
-		    con.setRequestProperty("Referer","http://oldschool.runescape.com/");
-		    con.setDoOutput(true);
-		    con.setDoInput(true);
-		    
-		    
+			url = new URL(location);
+			con = (HttpURLConnection) url.openConnection(proxy);
+			HttpURLConnection.setFollowRedirects(true);
+			USER_AGENT = RandomUserAgent.getRandomUserAgent();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Host", "secure.runescape.com");
+			con.setRequestProperty("User-Agent",USER_AGENT);
+			con.setRequestProperty("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+			con.setRequestProperty("Accept-Language", "en-US,en);q=0.5");
+			//  con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
+			con.setRequestProperty("Referer","http://oldschool.runescape.com/");
+			con.setDoOutput(true);
+			con.setDoInput(true);
+
+
 			if (200 <= con.getResponseCode() && con.getResponseCode() <= 299) {
-		        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		    } else {
-		        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-		    }
-		    sb = new StringBuilder();
-		    
-		    while ((output = br.readLine()) != null) {
-		      sb.append(output);
-		    }
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			sb = new StringBuilder();
 
-		    
-		    System.out.println(sb.toString());
-		    if(sb.toString().contains("Um link de redefinição de senha foi enviado")) {
-		    System.out.println("send email");
-		    }
-			
-			
-			
-			
-			
+			while ((output = br.readLine()) != null) {
+				sb.append(output);
+			}
+
+
+			System.out.println(sb.toString());
+
+			if(sb.toString().contains("Um link de redefinição de senha foi enviado")) {
+				System.out.println("send email OK");
+
+			}
+
+
+
+
+
 
 		}else if(location.contains("email-confirmation")) {
 
 		}else if(location.contains("message.ws")) {
-			 System.out.println("Limit reach, try agin after later");
+			System.out.println("Limit reach, try agin after later");
+
 		}
-
-
-
-
 
 
 

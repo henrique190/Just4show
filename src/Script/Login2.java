@@ -23,7 +23,6 @@ import TwoCaptchaApi.ProxyType;
 import TwoCaptchaApi.TwoCaptchaService;
 
 
-import android.text.TextUtils;
 
 public class Login2 {
 	Configs vars = new Configs();
@@ -35,11 +34,17 @@ public class Login2 {
 	String location = "";
 	String responseToken = "";
 	int loginStatus;
+	private String port;
+	private ProxyType type;
+	private String proxyIP;
 	
-	public Login2(String osrsEmail, String osrsSenha, String apiKey) {
+	public Login2(String osrsEmail, String osrsSenha, String apiKey,String proxyIP, String port, ProxyType type) {
 		this.osrsEmail = osrsEmail;
 		this.osrsSenha = osrsSenha;
 		this.apiKey = apiKey;
+		this.proxyIP = proxyIP;
+		this.port = port;
+		this.type = type;
 	}
 
 
@@ -64,7 +69,7 @@ public class Login2 {
 	private String getRecaptcha(String apiKey) {
 		String googleKey = "6Lcsv3oUAAAAAGFhlKrkRb029OHio098bbeyi_Hv"; ////
 		String pageUrl = "https://secure.runescape.com/m=weblogin/l=3/login.ws";
-		TwoCaptchaService service = new TwoCaptchaService(apiKey, googleKey, pageUrl);
+		TwoCaptchaService service = new TwoCaptchaService(apiKey, googleKey, pageUrl,proxyIP,port,type);
 
 		try {
 			responseToken = service.solveCaptcha();
@@ -88,9 +93,9 @@ public class Login2 {
 		String recaptchaResponse = getRecaptcha(apiKey);
 		String params = "username="+osrsEmail+"&password="+osrsSenha+"&g-recaptcha-response="+recaptchaResponse+"&theme=dual&mod=www&ssl=1&dest=account_settings";
 		URL url;
-		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8888));
+		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyIP, Integer.parseInt(port)));
 		url = new URL("https://secure.runescape.com/m=weblogin/l=3/login.ws");
-		HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+		HttpsURLConnection con = (HttpsURLConnection) url.openConnection(proxy);
 		HttpsURLConnection.setFollowRedirects(true);
 		String USER_AGENT = RandomUserAgent.getRandomUserAgent();
 		con.setConnectTimeout(20000);
@@ -135,8 +140,9 @@ public class Login2 {
 			session = cookie.substring(um, dois);
 		
 		} 
-		else if(sb.toString().contains("Para sua segurança, sua conta foi bloqueada")) {
+		else if(sb.toString().contains("foi bloqueada")) {
 	    	System.out.println("Blocked account");
+	    	Configs.status =("Blocked account");
 	    	this.loginStatus = 2;
 	    }
 		
